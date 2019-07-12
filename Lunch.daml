@@ -1,0 +1,30 @@
+daml 1.2 module Lunch where
+import Main
+
+template WorkFromHome with 
+  slacker : Party
+  reviewer : Party
+  bossMan : Party
+  where
+    signatory slacker
+    observer slacker
+
+    nonconsuming choice Address_PR_Comments: (
+        ContractId Investment,
+        ContractId Cash,
+        ContractId Cash,
+        Optional (ContractId Cash)
+      )
+      with
+        slacker: Party
+        reviewer: Party
+      controller reviewer
+      do
+        cc <- fetch committedCash
+
+template Lunch with 
+  colleagues : [Party]
+
+  nonconsuming choice Choose_Venue with
+    lunchers : [Party]
+    
